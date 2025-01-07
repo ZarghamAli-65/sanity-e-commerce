@@ -1,21 +1,45 @@
+@import url("https://fonts.googleapis.com/css2?family=Urbanist:wght@100..900&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+* {
+  @apply font-urbanist;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+.container {
+  @apply md:max-w-[1024px] max-w-[600px] px-4 md:px-0 m-auto;
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+.logo {
+  @apply font-urbanist font-black text-2xl;
+}
+
+.cart-item {
+  @apply relative text-[25px];
+}
+
+.cart-item-qty {
+  @apply absolute text-[12px] top-0 right-[-5px] bg-red-500 w-[18px] h-[18px] rounded-full text-center text-white font-bold;
+}
+
+.quantity-desc {
+  @apply p-[6px] flex border border-black;
+}
+
+.quantity-desc span {
+  @apply text-[16px] cursor-pointer;
+  padding: 6px 12px;
+}
+
+.quantity-desc .num {
+  @apply text-[20px];
+}
+
+.quantity-desc .plus {
+  color: rgb(49, 168, 49);
+}
+
+.quantity-desc .minus {
+  color: red;
 }
