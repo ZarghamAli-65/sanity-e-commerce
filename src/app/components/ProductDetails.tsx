@@ -4,9 +4,11 @@ import { urlFor } from "@/sanity/lib/image";
 import Image from "next/image";
 import React, { useContext, useState } from "react";
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
+import { CartContext } from "../context/CartContext";
 
 const ProductDetails = ({ product }: any) => {
   const [index, setIndex] = useState(0);
+  const { quantity, incQuantity, decQuantity, addProduct }: any = useContext(CartContext);
 
   return (
     <div className="w-full md:py-16">
@@ -51,20 +53,18 @@ const ProductDetails = ({ product }: any) => {
 
           <div className="flex gap-2 items-center ">
             <h3>Quantity</h3>
-            <p className="p-[6px] flex items-center border border-black">
-              <span className="minus">
+            <p className="quantity-desc flex items-center border-black">
+              <span className="text-red-500 " onClick={decQuantity}>
                 <AiOutlineMinus />
               </span>
-              <span className="num">1</span>
-              <span className="plus">
+              <span className=" text-[20px]">{quantity}</span>
+              <span className="text-green-500" onClick={incQuantity}>
                 <AiOutlinePlus />
               </span>
             </p>
           </div>
 
-          <button className="btn add-to-cart">
-                Add to Cart
-          </button>
+          <button onClick={()=>addProduct(product,quantity)} className="btn add-to-cart">Add to Cart</button>
         </div>
       </div>
     </div>

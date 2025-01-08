@@ -24,7 +24,7 @@
 }
 
 .quantity-desc {
-  @apply p-[6px] flex border border-black;
+  @apply p-[6px] flex border border-black items-center;
 }
 
 .quantity-desc span {
@@ -36,10 +36,10 @@
   @apply text-[20px];
 }
 
-.quantity-desc .plus {
-  color: rgb(49, 168, 49);
+.btn {
+  @apply text-black md:w-1/2 p-5 text-xl font-bold w-full  border-4 border-black;
 }
 
-.quantity-desc .minus {
-  color: red;
+.add-to-cart {
+  @apply hover:bg-black  hover:text-white;
 }
