@@ -6,7 +6,7 @@ import { urlFor } from "@/sanity/lib/image";
 import { TiDeleteOutline } from "react-icons/ti";
 
 const Cart = () => {
-  const { showCart, setShowCart, cartItems, totalQuantity, totalPrice, toggleCartItemQty }: any =
+  const { showCart, setShowCart, cartItems, totalQuantity, totalPrice, toggleCartItemQty , onRemove }: any =
     useContext(CartContext);
 
   const handleClose = () => {
@@ -28,6 +28,7 @@ const Cart = () => {
           {cartItems.map((product: any) => (
             <div className="flex gap-[15px] p-[20px]" key={product._id}>
               <Image
+               
                 src={urlFor(product.images[0]).url()}
                 width={200}
                 height={200}
@@ -52,6 +53,7 @@ const Cart = () => {
                   </div>
                   <button
                     type="button"
+                    onClick={() => onRemove(product)}
                     className="font-[24px] text-[#f02d34] cursor-pointer transparent border-none"
                   >
                     <TiDeleteOutline />

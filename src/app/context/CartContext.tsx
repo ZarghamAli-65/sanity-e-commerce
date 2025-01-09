@@ -48,25 +48,40 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
+  const onRemove = (product:any) => {
+      let foundProduct = cartItems.find((item) => item._id === product._id);
+      const newCartItems = cartItems.filter((item) => item._id !== product._id);
+
+      setCartItems(newCartItems);
+      setTotalPrice((prevTotalPrice) => prevTotalPrice - foundProduct.price * foundProduct.quantity) ;
+      setTotalQuantity((prevTotalQuantity) => prevTotalQuantity - foundProduct.quantity);
+    }
+
   const toggleCartItemQty = (id: any, value: any) => {
     let foundProduct = cartItems.find((item) => item._id === id);
     const otherProducts = cartItems.filter((item) => item._id !== id);
+    const index = cartItems.findIndex((product) => product._id === id);
+    const updatedCartItems = [...cartItems];
 
     if (value === "plus") {
-
-      setCartItems([
-        ...otherProducts,
-        { ...foundProduct, quantity: foundProduct.quantity + 1 },
-      ]);
-      setTotalPrice((prevTotalPrice) => prevTotalPrice + foundProduct.price * quantity);
+      updatedCartItems[index] = {
+        ...updatedCartItems[index],
+        quantity: updatedCartItems[index].quantity + 1,
+      };
+      setCartItems([...updatedCartItems]);
+      setTotalPrice((prevTotalPrice) => prevTotalPrice + foundProduct.price);
+      setTotalQuantity((prevTotalQuantity) => prevTotalQuantity + 1);
     } else if (value === "minus") {
       if (foundProduct.quantity > 1) {
-        setCartItems([
-          ...otherProducts,
-          { ...foundProduct, quantity: foundProduct.quantity - 1 },
-        ]);
-      } else {
-        setCartItems([...otherProducts]);
+        updatedCartItems[index] = {
+          ...updatedCartItems[index],
+          quantity: updatedCartItems[index].quantity - 1,
+        };
+        setCartItems([...updatedCartItems]);
+        setTotalPrice((prevTotalPrice) => prevTotalPrice - foundProduct.price);
+        setTotalQuantity((prevTotalQuantity) => prevTotalQuantity - 1);
+      
+      
       }
     }
   };
@@ -86,6 +101,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         totalQuantity,
         totalPrice,
         toggleCartItemQty,
+        onRemove,
       }}
     >
       <div>{children}</div>
